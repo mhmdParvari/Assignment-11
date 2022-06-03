@@ -55,9 +55,6 @@ class Game(arcade.Window):
         self.ball=Ball(self)
         self.myScore=0
         self.oppScore=0
-        self.racket_list=arcade.SpriteList()
-        self.racket_list.append(self.myRacket)
-        self.racket_list.append(self.oppRacket)
 
     def on_draw(self):
         arcade.start_render()
@@ -73,8 +70,8 @@ class Game(arcade.Window):
         self.myRacket.move()
         self.oppRacket.move()
         self.AI_set()
-        if arcade.check_for_collision_with_list(self.ball,self.racket_list):
-            self.ball.x_direction *= -1            
+        if arcade.check_for_collision(self.ball, self.myRacket) or arcade.check_for_collision(self.ball, self.oppRacket):
+            self.ball.x_direction *= -1       
         self.checkForWin()
 
     def on_key_press(self, key, modifiers: int):
